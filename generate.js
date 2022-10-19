@@ -1,3 +1,4 @@
+/* --- Define PanelItem class and content generator / parser for markup --- */
 class PanelItem {
     constructor(type, direction = null, children = [], params = {}) {
         this.type = type;
@@ -8,30 +9,8 @@ class PanelItem {
 }
 var _old = PanelItem;
 PanelItem = function(...args) { return new _old(...args) };
-
-
-markup = [
-    PanelItem('body', 'column', [
-        PanelItem('', 'column', [
-            PanelItem('', 'row', [
-                PanelItem('', 'column', [
-                    PanelItem('text', '', [], { 'text': 'Test area', 'underline': true, 'bold': true, 'fontSize': '18px' }),
-                    PanelItem('button', '', [], { 'onclick': "alert('Test')", 'text': 'Show alert' }),
-                    PanelItem('button', '', [], { 'onclick': "highlight($('.htmlpanel'), 3)", 'text': 'Glow panel' }),
-                    PanelItem('checkmark', '', [], { 'onclick': "console.log('New checkmark = ', this.checked)", 'text': 'Check test' })
-                ], { 'border': 'right' }),
-                PanelItem('', 'column', [
-                    PanelItem('text', '', [], { 'text': 'This window', 'underline': true, 'bold': true, 'fontSize': '18px', }),
-                    PanelItem('checkbutton', '', [], { 'onclick': "minimizeWindow($('.htmlpanel')[0])", 'text': 'Minimize' }),
-                    PanelItem('input', '', [], { 'onclick': "titleWindow($('.htmlpanel')[0], this.value)", 'text': 'Title' })
-                ])
-            ])
-        ])
-    ], { 'panel_width': '300px' })
-]
-
+// panel_element is used in parser - search this file for " Note* "
 panel_element = $('.htmlpanel')[0]
-
 function ParseMarkup(d, level = 0) {
     result = '';
     for (let item in d) {
@@ -40,6 +19,8 @@ function ParseMarkup(d, level = 0) {
         local_end = '';
         if (item.type == 'body') {
             result += "<div class=\"container htmlpanel-body\">";
+			// Note*
+			// Experimental: set panel size (only for 'body' type items)
             if (item.params.panel_width) { panel_element.style.width = item.params.panel_width; }
             if (item.params.panel_height) { panel_element.style.height = item.params.panel_height; }
             end = "</div>";
@@ -80,7 +61,7 @@ function ParseMarkup(d, level = 0) {
                 result += '<span>' + item.params.text + '</span>';
             }
             result += local_end;
-            if (item.type == 'inpinputut') {
+            if (item.type == 'input') {
                 result += '<input placeholder="' + item.params.text + ':" onkeyup="' + item.params.onclick + '" type="text">';
             }
         }
@@ -92,8 +73,38 @@ function ParseMarkup(d, level = 0) {
     }
     return result;
 }
+function initBody(m) {
+	/* Parse markup and generate html code */
+	code = formatHTML(ParseMarkup(m))
+	/* Fill panel body with generated html */
+	panel_body = $('.htmlpanel')[0]
+	panel_body.innerHTML += code
+}
 
-code = formatHTML(ParseMarkup(markup))
-console.log(code)
-panel_body = $('.htmlpanel')[0]
-panel_body.innerHTML += code
+
+
+/* --- User created (human readable) markup  --- */
+example_markup = [
+    PanelItem('body', 'column', [
+        PanelItem('', 'column', [
+            PanelItem('', 'row', [
+                PanelItem('', 'column', [
+                    PanelItem('text', '', [], { 'text': 'Test area', 'underline': true, 'bold': true, 'fontSize': '18px' }),
+                    PanelItem('button', '', [], { 'onclick': "alert('Test')", 'text': 'Show alert' }),
+                    PanelItem('button', '', [], { 'onclick': "highlight($('.htmlpanel'), 3)", 'text': 'Glow panel' }),
+                    PanelItem('checkmark', '', [], { 'onclick': "console.log('New checkmark = ', this.checked)", 'text': 'Check test' })
+                ], { 'border': 'right' }),
+                PanelItem('', 'column', [
+                    PanelItem('text', '', [], { 'text': 'This window', 'underline': true, 'bold': true, 'fontSize': '18px', }),
+                    PanelItem('checkbutton', '', [], { 'onclick': "minimizeWindow($('.htmlpanel')[0])", 'text': 'Minimize' }),
+                    PanelItem('input', '', [], { 'onclick': "titleWindow($('.htmlpanel')[0], this.value)", 'text': 'Title' })
+                ])
+            ])
+        ])
+    ], { 'panel_width': '300px' })
+]
+
+markup = example_markup;
+
+/* Generate and fill panel body from markup */
+initBody(markup);

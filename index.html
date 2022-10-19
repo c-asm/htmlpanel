@@ -24,12 +24,15 @@
         <script>
             $('div.htmlpanel').ready(
                 function() {
+					/* Make panel draggable */
 					let panel = $('div.htmlpanel');
                     dragElement(panel[0], $('div.htmlpanel>header>.drag-area')[0]);
+					/* Assign button actions */
 					let buttons = $('.button-area');
 					$(buttons[0]).on('click', ()=>minimizeWindow(panel));
 					$(buttons[1]).on('click', ()=>closeWindow(panel));
-                    console.log('Drag created');
+					/* Log */
+					console.log('Window created');
                 }
             );
         </script>
