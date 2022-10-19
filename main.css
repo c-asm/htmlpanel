@@ -1,0 +1,95 @@
+div.htmlpanel {
+    z-index: 999999;
+    min-width: 150px;
+    min-height: 50px;
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    background: #ccc;
+    display: flex;
+    /* flex-direction: column; */
+    flex-flow: column;
+}
+
+div.htmlpanel>header {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 40px;
+}
+
+div.htmlpanel>header>.drag-area {
+    padding-left: 10px;
+    font-size: 22px;
+    font-weight: bold;
+    background: #888;
+    cursor: move;
+    height: 100%;
+    line-height: 40px;
+    /* same as height! */
+    width: calc(100% - 40px)
+}
+
+div.htmlpanel>header>.button-area {
+    cursor: pointer;
+    height: 100%;
+    width: 40px;
+    line-height: 40px;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    background: red;
+}
+
+.htmlpanel-body {
+    flex: 1;
+    width: 100%;
+}
+
+div.panelitem {
+    min-height: 40px;
+    min-width: 50px;
+    padding: 2px;
+    text-align: center;
+}
+
+tr {
+    border: 2px solid gray;
+}
+
+td {
+    border: 1px solid black;
+}
+
+.htmlpanel input[type=text] {
+    width: 90%;
+    min-width: 30px;
+    /* background: #ddd; */
+}
+
+.htmlpanel input::placeholder {
+    color: black;
+    padding-left: 5px;
+}
+
+.htmlpanel button.button {
+    width: 95%;
+    border-radius: 5px;
+}
+
+.htmlpanel button.checkbutton {
+    width: 20px;
+    height: 20px;
+}
+
+.htmlpanel input[type=checkbox] {
+    width: 15px;
+    height: 15px;
+}
+
+.glow {
+    -webkit-box-shadow: 0px 0px 31px 9px rgba(255, 0, 0, 0.9);
+    -moz-box-shadow: 0px 0px 31px 9px rgba(255, 0, 0, 0.9);
+    box-shadow: 0px 0px 31px 9px rgba(255, 0, 0, 0.9);
+	transition: -webkit-box-shadow, -moz-box-shadow, box-shadow 0.5s linear;
+}

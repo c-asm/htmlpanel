@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="main.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+
+<body lang='en'>
+    <script src="main.js"></script>
+    <div class="htmlpanel">
+        <header>
+            <div class="drag-area"> Window title </div>
+            <div class="button-area"><i class="fa-solid fa-minus"></i></div>
+            <div class="button-area"><i class="fa-solid fa-xmark"></i></div>
+        </header>
+        <!-- <div class="htmlpanel-body"></div> -->
+        <script>
+            $('div.htmlpanel').ready(
+                function() {
+					let panel = $('div.htmlpanel');
+                    dragElement(panel[0], $('div.htmlpanel>header>.drag-area')[0]);
+					let buttons = $('.button-area');
+					$(buttons[0]).on('click', ()=>minimizeWindow(panel));
+					$(buttons[1]).on('click', ()=>closeWindow(panel));
+                    console.log('Drag created');
+                }
+            );
+        </script>
+    </div>
+    <script src="generate.js"></script>
+</body>
