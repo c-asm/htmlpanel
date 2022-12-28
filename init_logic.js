@@ -19,7 +19,7 @@ function createHandlers(panel) {
 (async function() {
     console.log('js logic loading');
     function waitforjquery() {
-        if (window.jQuery) {
+        if (window.jQuery && window.load_m) {
 			createHandlers($('div.htmlpanel'));
         } else {
             setTimeout(function() { waitforjquery() }, 100);
