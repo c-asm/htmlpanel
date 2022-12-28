@@ -1,6 +1,6 @@
 (async function() {
     var panelStaticRoot = 'https://cdn.jsdelivr.net/gh/c-asm/htmlpanel'
-    var panelStaticRoot = '.'
+    // var panelStaticRoot = '.'
 
     const sleep = ms => new Promise(r => setTimeout(r, ms));
 
