@@ -1,3 +1,5 @@
+console.log('main.js loaded')
+
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 function dragElement(mainEl, dragEl) {
@@ -94,3 +96,5 @@ async function highlight(el, time) {
     await sleep(time * 1000);
     $(el).removeClass('glow');
 }
+
+window.load_m = true;

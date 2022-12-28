@@ -9,9 +9,10 @@ class PanelItem {
 }
 var _old = PanelItem;
 PanelItem = function(...args) { return new _old(...args) };
-// panel_element is used in parser - search this file for " Note* "
-panel_element = $('.htmlpanel')[0]
+
 function ParseMarkup(d, level = 0) {
+    // panel_element is used in parser - search this file for " Note* "
+    panel_element = $('.htmlpanel')[0]
     result = '';
     for (let item in d) {
         item = d[item];
@@ -19,8 +20,8 @@ function ParseMarkup(d, level = 0) {
         local_end = '';
         if (item.type == 'body') {
             result += "<div class=\"container htmlpanel-body\">";
-			// Note*
-			// Experimental: set panel size (only for 'body' type items)
+            // Note*
+            // Experimental: set panel size (only for 'body' type items)
             if (item.params.panel_width) { panel_element.style.width = item.params.panel_width; }
             if (item.params.panel_height) { panel_element.style.height = item.params.panel_height; }
             end = "</div>";
@@ -73,12 +74,16 @@ function ParseMarkup(d, level = 0) {
     }
     return result;
 }
+
 function initBody(m) {
-	/* Parse markup and generate html code */
-	code = formatHTML(ParseMarkup(m))
+    /* Parse markup and generate html code */
+    code = formatHTML(ParseMarkup(m));
 	/* Fill panel body with generated html */
-	panel_body = $('.htmlpanel')[0]
-	panel_body.innerHTML += code
+    panel_body = $('.htmlpanel')[0];
+    panel_body.innerHTML += code;
+	/* Reassign drag events */
+	createHandlers($('div.htmlpanel'));
+    // dragElement($('div.htmlpanel')[0], $('div.htmlpanel>header>.drag-area')[0]);
 }
 
 
@@ -104,7 +109,9 @@ example_markup = [
     ], { 'panel_width': '300px' })
 ]
 
-markup = example_markup;
+// markup = example_markup;
 
 /* Generate and fill panel body from markup */
-initBody(markup);
+// initBody(markup);
+
+window.load_g = true;

@@ -1,0 +1,16 @@
+<body>
+    <script src="loader.js"></script>
+    <script>
+		(function() {
+			function wait() {
+				if (!window.panel_loaded) {
+					setTimeout(wait, 100)
+				} else {
+					console.log('Creating markup now...');
+					initBody(example_markup);
+				}
+			}
+			wait();
+		})();
+    </script>
+</body>
